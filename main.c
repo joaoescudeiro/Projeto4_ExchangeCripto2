@@ -83,3 +83,50 @@ int main() {
     }
     return 0;
 }
+
+void menuPrincipal(Usuario *usuario, Cotacao *mercado) {
+    int opcao;
+    do {
+        printf("\nMenu\n");
+        printf("1. Consultar saldo\n");
+        printf("2. Consultar extrato\n");
+        printf("3. Depositar reais\n");
+        printf("4. Sacar reais\n");
+        printf("5. Comprar criptomoedas\n");
+        printf("6. Vender criptomoedas\n");
+        printf("7. Atualizar cotações das criptomoedas\n");
+        printf("0. Sair\n");
+        printf("Escolha uma opção: ");
+        scanf("%d", &opcao);
+
+        switch (opcao) {
+            case 1:
+                exibirSaldo(*usuario);
+                break;
+            case 2:
+                consultarExtrato(*usuario);
+                break;
+            case 3:
+                depositarReais(usuario);
+                break;
+            case 4:
+                sacarReais(usuario);
+                break;
+            case 5:
+                comprarCripto(usuario, *mercado);
+                break;
+            case 6:
+                venderCripto(usuario, *mercado);
+                break;
+            case 7:
+                atualizarCotacoes(mercado);
+                break;
+            case 0:
+                printf("Encerrando.\n");
+                break;
+            default:
+                printf("Opção inválida. Tente novamente.\n");
+        }
+
+    } while (opcao != 0);
+}
