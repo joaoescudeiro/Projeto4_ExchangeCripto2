@@ -61,9 +61,7 @@ int main() {
     Usuario usuarios[MAXIMO_USUARIOS];
     Cotacao mercado = {250000.0, 15000.0, 5.0};
     int totalUsuarios = carregarUsuarios(usuarios);
-
-    cadastrarUsuario(usuarios, &totalUsuarios);
-
+    
     char cpf[TAMANHO_CPF];
     char senha[TAMANHO_SENHA];
     int indiceUsuario;
