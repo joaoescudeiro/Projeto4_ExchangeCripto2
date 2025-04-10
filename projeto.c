@@ -31,3 +31,39 @@ double gerarVariacaoAleatoria() {
     return variacao;
 }
 
+void salvarUsuarios(Usuario *usuarios, int total) {
+    FILE *arquivo = fopen("usuarios.dat", "wb");
+    if (arquivo != NULL) {
+        fwrite(&total, sizeof(int), 1, arquivo);
+        fwrite(usuarios, sizeof(Usuario), total, arquivo);
+        fclose(arquivo);
+    }
+}
+
+int carregarUsuarios(Usuario *usuarios) {
+    FILE *arquivo = fopen("usuarios.dat", "rb");
+    int total = 0;
+    if (arquivo != NULL) {
+        fread(&total, sizeof(int), 1, arquivo);
+        fread(usuarios, sizeof(Usuario), total, arquivo);
+        fclose(arquivo);
+    }
+    return total;
+}
+
+void salvarExtrato(Usuario usuario) {
+    char nomeArquivo[30];
+    sprintf(nomeArquivo, "extrato_%s.txt", usuario.cpf);
+    FILE *arquivo = fopen(nomeArquivo, "w");
+    if (arquivo != NULL) {
+        fprintf(arquivo, "Extrato do usuário CPF: %s\n", usuario.cpf);
+        for (int i = 0; i < usuario.totalTransacoes; i++) {
+            Transacao t = usuario.transacoes[i];
+            fprintf(arquivo, "%02d/%02d/%04d %02d:%02d:%02d - %s %s | Valor: R$ %.2lf | Taxa: R$ %.2lf | Final: %.6lf\n",
+                t.data.dia, t.data.mes, t.data.ano,
+                t.data.hora, t.data.min, t.data.seg,
+                t.tipoTransacao, t.tipoMoeda, t.valorOperacao, t.taxa, t.valorFinal);
+        }
+        fclose(arquivo);
+    }
+}
