@@ -12,13 +12,13 @@ extern int carregarUsuarios(Usuario *);
 extern void salvarExtrato(Usuario);
 
 void cadastrarUsuario(Usuario *usuarios, int *totalUsuarios);
-void menuPrincipal(Usuario *usuario, Mercado *mercado);
+void menuPrincipal(Usuario *usuario, Cotacao *cotacao);
 void exibirSaldo(Usuario usuario);
 void depositarReais(Usuario *usuario);
 void sacarReais(Usuario *usuario);
-void comprarCripto(Usuario *usuario, Mercado mercado);
-void venderCripto(Usuario *usuario, Mercado mercado);
-void atualizarCotacoes(Mercado *mercado);
+void comprarCripto(Usuario *usuario, Cotacao cotacao);
+void venderCripto(Usuario *usuario, Cotacao cotacao);
+void atualizarCotacoes(Cotacao *cotacao);
 void consultarExtrato(Usuario usuario);
 
 
@@ -62,6 +62,8 @@ int main() {
     Cotacao mercado = {250000.0, 15000.0, 5.0};
     int totalUsuarios = carregarUsuarios(usuarios);
 
+    cadastrarUsuario(usuarios, &totalUsuarios);
+
     char cpf[TAMANHO_CPF];
     char senha[TAMANHO_SENHA];
     int indiceUsuario;
@@ -84,7 +86,7 @@ int main() {
     return 0;
 }
 
-void menuPrincipal(Usuario *usuario, Cotacao *mercado) {
+void menuPrincipal(Usuario *usuario, Cotacao *cotacao) {
     int opcao;
     do {
         printf("\nMenu\n");
@@ -113,13 +115,13 @@ void menuPrincipal(Usuario *usuario, Cotacao *mercado) {
                 sacarReais(usuario);
                 break;
             case 5:
-                comprarCripto(usuario, *mercado);
+                comprarCripto(usuario, *cotacao);
                 break;
             case 6:
-                venderCripto(usuario, *mercado);
+                venderCripto(usuario, *cotacao);
                 break;
             case 7:
-                atualizarCotacoes(mercado);
+                atualizarCotacoes(cotacao);
                 break;
             case 0:
                 printf("Encerrando.\n");
@@ -130,3 +132,4 @@ void menuPrincipal(Usuario *usuario, Cotacao *mercado) {
 
     } while (opcao != 0);
 }
+
