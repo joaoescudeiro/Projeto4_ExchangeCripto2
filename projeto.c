@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
-#include "exchange.h"
+#include "projeto.h"
 
 int autenticarUsuario(Usuario *usuarios, int total, char *cpf, char *senha) {
     for (int i = 0; i < total; i++) {
@@ -13,7 +13,7 @@ int autenticarUsuario(Usuario *usuarios, int total, char *cpf, char *senha) {
     return -1;
 }
 
-DataHora DataHoraAtual() {
+DataHora dataHoraAtual() {
     time_t agora = time(NULL);
     struct tm *tempoLocal = localtime(&agora);
     DataHora data;
