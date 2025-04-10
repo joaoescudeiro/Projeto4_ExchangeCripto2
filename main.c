@@ -56,3 +56,30 @@ void cadastrarUsuario(Usuario *usuarios, int *totalUsuarios) {
 
     printf("Usuário cadastrado com sucesso.\n");
 }
+
+int main() {
+    Usuario usuarios[MAXIMO_USUARIOS];
+    Cotacao mercado = {250000.0, 15000.0, 5.0};
+    int totalUsuarios = carregarUsuarios(usuarios);
+
+    char cpf[TAMANHO_CPF];
+    char senha[TAMANHO_SENHA];
+    int indiceUsuario;
+
+    printf("Exchange de Criptomoedas\n");
+    printf("Digite o seu CPF: ");
+    scanf("%s", cpf);
+    printf("Digite a sua senha: ");
+    scanf("%s", senha);
+
+    indiceUsuario = autenticarUsuario(usuarios, totalUsuarios, cpf, senha);
+
+    if (indiceUsuario != -1) {
+        printf("Login realizado com sucesso.\n");
+        menuPrincipal(&usuarios[indiceUsuario], &mercado);
+        salvarUsuarios(usuarios, totalUsuarios);
+    } else {
+        printf("CPF ou senha inválidos.\n");
+    }
+    return 0;
+}
