@@ -133,3 +133,30 @@ void menuPrincipal(Usuario *usuario, Cotacao *cotacao) {
     } while (opcao != 0);
 }
 
+void exibirSaldo(Usuario usuario){
+
+}
+
+void depositarReais(Usuario *usuario){
+
+}
+
+void sacarReais(Usuario *usuario){
+
+}
+
+void comprarCripto(Usuario *usuario, Cotacao cotacao){
+
+}
+
+void venderCripto(Usuario *usuario, Cotacao cotacao){
+
+}
+
+void atualizarCotacoes(Cotacao *cotacao){
+
+}
+
+void consultarExtrato(Usuario usuario){
+
+}
