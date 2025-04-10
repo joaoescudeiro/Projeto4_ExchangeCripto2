@@ -56,7 +56,7 @@ void salvarExtrato(Usuario usuario) {
     sprintf(nomeArquivo, "extrato_%s.txt", usuario.cpf);
     FILE *arquivo = fopen(nomeArquivo, "w");
     if (arquivo != NULL) {
-        fprintf(arquivo, "Extrato do usuário CPF: %s\n", usuario.cpf);
+        fprintf(arquivo, "Extrato do usuario CPF: %s\n", usuario.cpf);
         for (int i = 0; i < usuario.totalTransacoes; i++) {
             Transacao t = usuario.transacoes[i];
             fprintf(arquivo, "%02d/%02d/%04d %02d:%02d:%02d - %s %s | Valor: R$ %.2lf | Taxa: R$ %.2lf | Final: %.6lf\n",

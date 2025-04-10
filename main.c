@@ -24,18 +24,18 @@ void consultarExtrato(Usuario usuario);
 
 void cadastrarUsuario(Usuario *usuarios, int *totalUsuarios) {
     if (*totalUsuarios >= MAXIMO_USUARIOS) {
-        printf("Limite máximo de usuários atingido.\n");
+        printf("Limite maximo de usuarios atingido.\n");
         return;
     }
 
     Usuario novo;
-    printf("Cadastro de Usuário\n");
+    printf("Cadastro de Usuario\n");
     printf("Digite o CPF: ");
     scanf("%s", novo.cpf);
 
     for (int i = 0; i < *totalUsuarios; i++) {
         if (strcmp(usuarios[i].cpf, novo.cpf) == 0) {
-            printf("CPF já cadastrado. Tente novamente.\n");
+            printf("CPF ja cadastrado. Tente novamente.\n");
             return;
         }
     }
@@ -54,7 +54,7 @@ void cadastrarUsuario(Usuario *usuarios, int *totalUsuarios) {
 
     salvarUsuarios(usuarios, *totalUsuarios);
 
-    printf("Usuário cadastrado com sucesso.\n");
+    printf("Usuario cadastrado com sucesso.\n");
 }
 
 int main() {
@@ -81,7 +81,7 @@ int main() {
         menuPrincipal(&usuarios[indiceUsuario], &mercado);
         salvarUsuarios(usuarios, totalUsuarios);
     } else {
-        printf("CPF ou senha inválidos.\n");
+        printf("CPF ou senha invalidos.\n");
     }
     return 0;
 }
@@ -96,9 +96,9 @@ void menuPrincipal(Usuario *usuario, Cotacao *cotacao) {
         printf("4. Sacar reais\n");
         printf("5. Comprar criptomoedas\n");
         printf("6. Vender criptomoedas\n");
-        printf("7. Atualizar cotações das criptomoedas\n");
+        printf("7. Atualizar cotacoes das criptomoedas\n");
         printf("0. Sair\n");
-        printf("Escolha uma opção: ");
+        printf("Escolha uma opcao: ");
         scanf("%d", &opcao);
 
         switch (opcao) {
@@ -127,7 +127,7 @@ void menuPrincipal(Usuario *usuario, Cotacao *cotacao) {
                 printf("Encerrando.\n");
                 break;
             default:
-                printf("Opção inválida. Tente novamente.\n");
+                printf("Opcao invalida. Tente novamente.\n");
         }
 
     } while (opcao != 0);
