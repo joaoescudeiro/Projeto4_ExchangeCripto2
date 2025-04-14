@@ -156,7 +156,32 @@ void depositarReais(Usuario *usuario){
 }
 
 void sacarReais(Usuario *usuario){
+    double valor;
+    char senha[TAMANHO_SENHA];
 
+    printf("Digite o valor que deseja sacar: R$ ");
+    scanf("%lf", &valor);
+
+    if (valor <= 0) {
+        printf("O valor deve ser maior que zero.\n");
+        return;
+    }
+
+    if (valor > usuario->saldoReais) {
+        printf("Saldo insuficiente.", usuario->saldoReais);
+        return;
+    }
+
+    printf("Digite a sua senha: ");
+    scanf("%s", senha);
+
+    if (strcmp(senha, usuario->senha) != 0) {
+        printf("Senha incorreta. Saque cancelado.\n");
+        return;
+    }
+
+    usuario->saldoReais -= valor;
+    printf("Saque realizado. Novo saldo em Reais: R$ %.2lf\n", usuario->saldoReais);
 }
 
 void comprarCripto(Usuario *usuario, Cotacao cotacao){
