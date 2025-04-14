@@ -312,7 +312,109 @@ void comprarCripto(Usuario *usuario, Cotacao cotacao){
 }
 
 void venderCripto(Usuario *usuario, Cotacao cotacao){
+    int opcao;
+    double valorReais, taxa, valorLiquido, quantidadeVender;
+    char senha[TAMANHO_SENHA];
+    char moeda[10];
+    double cotacaoAtual = 0.0;
 
+    printf("\nVender cripto\n");
+    printf("Escolha o tipo que quer vender:\n");
+    printf("1 - Bitcoin (BTC)\n");
+    printf("2 - Ethereum (ETH)\n");
+    printf("3 - Ripple (XRP)\n");
+    printf("Opcao: ");
+    scanf("%d", &opcao);
+
+    printf("Digite o valor que deseja vender em reais: R$ ");
+    scanf("%lf", &valorReais);
+
+    printf("Digite a sua senha: ");
+    scanf("%s", senha);
+    if (strcmp(senha, usuario->senha) != 0) {
+        printf("Senha incorreta. Venda cancelada.\n");
+        return;
+    }
+
+    switch (opcao) {
+        case 1:
+            cotacaoAtual = cotacao.cotacaoBTC;
+            taxa = valorReais * 0.03;
+            valorLiquido = valorReais - taxa;
+            quantidadeVender = valorReais / cotacaoAtual;
+            if (quantidadeVender > usuario->saldoBTC) {
+                printf("Saldo insuficiente de BTC.\n");
+                return;
+            }
+            usuario->saldoBTC -= quantidadeVender;
+            strcpy(moeda, "BTC");
+            break;
+        case 2:
+            cotacaoAtual = cotacao.cotacaoETH;
+            taxa = valorReais * 0.02;
+            valorLiquido = valorReais - taxa;
+            quantidadeVender = valorReais / cotacaoAtual;
+            if (quantidadeVender > usuario->saldoETH) {
+                printf("Saldo insuficiente de ETH.\n");
+                return;
+            }
+            usuario->saldoETH -= quantidadeVender;
+            strcpy(moeda, "ETH");
+            break;
+        case 3:
+            cotacaoAtual = cotacao.cotacaoXRP;
+            taxa = valorReais * 0.01;
+            valorLiquido = valorReais - taxa;
+            quantidadeVender = valorReais / cotacaoAtual;
+            if (quantidadeVender > usuario->saldoXRP) {
+                printf("Saldo insuficiente de XRP.\n");
+                return;
+            }
+            usuario->saldoXRP -= quantidadeVender;
+            strcpy(moeda, "XRP");
+            break;
+        default:
+            printf("Opção inválida.\n");
+            return;
+    }
+
+    printf("\nConfirme a venda:\n");
+    printf("Moeda: %s\n", moeda);
+    printf("Cotacao atual: R$ %.2lf\n", cotacaoAtual);
+    printf("Valor da venda: R$ %.2lf\n", valorReais);
+    printf("Taxa de venda: R$ %.2lf\n", taxa);
+    printf("Valor liquido a receber: R$ %.2lf\n", valorLiquido);
+    printf("Quantidade de %s vendida: %.6lf\n", moeda, quantidadeVender);
+
+    char confirmacao;
+    printf("Deseja confirmar a venda? (s/n): ");
+    scanf(" %c", &confirmacao);
+
+    if (confirmacao != 's' && confirmacao != 'S') {
+        printf("Venda cancelada.\n");
+        if (strcmp(moeda, "BTC") == 0) usuario->saldoBTC += quantidadeVender;
+        else if (strcmp(moeda, "ETH") == 0) usuario->saldoETH += quantidadeVender;
+        else if (strcmp(moeda, "XRP") == 0) usuario->saldoXRP += quantidadeVender;
+        return;
+    }
+
+    usuario->saldoReais += valorLiquido;
+    printf("Venda realizada.\n");
+
+    if (usuario->totalTransacoes < MAXIMO_TRANSACOES) {
+        Transacao t;
+        t.data = dataHoraAtual();
+        strcpy(t.tipoTransacao, "VENDA");
+        strcpy(t.tipoMoeda, moeda);
+        t.valorOperacao = valorReais;
+        t.taxa = taxa;
+        t.valorFinal = valorLiquido;
+
+        usuario->transacoes[usuario->totalTransacoes] = t;
+        usuario->totalTransacoes++;
+    } else {
+        printf("Limite de transacoes atingido.\n");
+    }
 }
 
 void atualizarCotacoes(Cotacao *cotacao){
