@@ -141,7 +141,18 @@ void exibirSaldo(Usuario usuario){
 }
 
 void depositarReais(Usuario *usuario){
+    double valor;
 
+    printf("Digite o valor que deseja depositar: R$ ");
+    scanf("%lf", &valor);
+
+    if (valor <= 0) {
+        printf("O valor deve ser maior que zero.\n");
+        return;
+    }
+
+    usuario->saldoReais += valor;
+    printf("Deposito realizado. Novo saldo em Reais: R$ %.2lf\n", usuario->saldoReais);
 }
 
 void sacarReais(Usuario *usuario){
