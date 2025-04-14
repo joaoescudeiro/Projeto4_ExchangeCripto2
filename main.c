@@ -132,7 +132,12 @@ void menuPrincipal(Usuario *usuario, Cotacao *cotacao) {
 }
 
 void exibirSaldo(Usuario usuario){
-
+    printf("\nConsulta saldo:\n");
+    printf("CPF: %s\n", usuario.cpf);
+    printf("Reais (BRL): R$ %.2lf\n", usuario.saldoReais);
+    printf("Bitcoin (BTC): %.5lf BTC\n", usuario.saldoBTC);
+    printf("Ethereum (ETH): %.5lf ETH\n", usuario.saldoETH);
+    printf("Ripple (XRP): %.5lf XRP\n", usuario.saldoXRP);
 }
 
 void depositarReais(Usuario *usuario){
