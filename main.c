@@ -153,6 +153,21 @@ void depositarReais(Usuario *usuario){
 
     usuario->saldoReais += valor;
     printf("Deposito realizado. Novo saldo em Reais: R$ %.2lf\n", usuario->saldoReais);
+
+    if (usuario->totalTransacoes < MAXIMO_TRANSACOES) {
+        Transacao t;
+        t.data = dataHoraAtual();
+        strcpy(t.tipoTransacao, "DEPOSITO");
+        strcpy(t.tipoMoeda, "REAL");
+        t.valorOperacao = valor;
+        t.taxa = 0.0;
+        t.valorFinal = valor;
+
+        usuario->transacoes[usuario->totalTransacoes] = t;
+        usuario->totalTransacoes++;
+    } else {
+        printf("Limite de transacoes atingido.\n");
+    }
 }
 
 void sacarReais(Usuario *usuario){
@@ -182,6 +197,22 @@ void sacarReais(Usuario *usuario){
 
     usuario->saldoReais -= valor;
     printf("Saque realizado. Novo saldo em Reais: R$ %.2lf\n", usuario->saldoReais);
+
+    if (usuario->totalTransacoes < MAXIMO_TRANSACOES) {
+        Transacao t;
+        t.data = dataHoraAtual();
+        strcpy(t.tipoTransacao, "SAQUE");
+        strcpy(t.tipoMoeda, "REAL");
+        t.valorOperacao = valor;
+        t.taxa = 0.0;
+        t.valorFinal = -valor;
+
+        usuario->transacoes[usuario->totalTransacoes] = t;
+        usuario->totalTransacoes++;
+    } else {
+        printf("Limite de transacoes atingido.\n");
+    }
+
 }
 
 void comprarCripto(Usuario *usuario, Cotacao cotacao){
@@ -197,5 +228,21 @@ void atualizarCotacoes(Cotacao *cotacao){
 }
 
 void consultarExtrato(Usuario usuario){
+    printf("\nExtrato\n");
+    printf("CPF: %s\n", usuario.cpf);
+    printf("Total de transacoes: %d\n", usuario.totalTransacoes);
 
+    if (usuario.totalTransacoes == 0) {
+        printf("Nenhuma transacao registrada.\n");
+        return;
+    }
+
+    for (int i = 0; i < usuario.totalTransacoes; i++) {
+        Transacao t = usuario.transacoes[i];
+        printf("%02d/%02d/%04d %02d:%02d:%02d - %s %s | Valor: R$ %.2lf | Taxa: R$ %.2lf | Final: %.6lf\n",
+               t.data.dia, t.data.mes, t.data.ano,
+               t.data.hora, t.data.min, t.data.seg,
+               t.tipoTransacao, t.tipoMoeda,
+               t.valorOperacao, t.taxa, t.valorFinal);
+    }
 }
