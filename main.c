@@ -166,6 +166,8 @@ void depositarReais(Usuario *usuario){
 
         usuario->transacoes[usuario->totalTransacoes] = t;
         usuario->totalTransacoes++;
+
+        salvarExtrato(*usuario);
     } else {
         printf("Limite de transacoes atingido.\n");
     }
@@ -210,6 +212,8 @@ void sacarReais(Usuario *usuario){
 
         usuario->transacoes[usuario->totalTransacoes] = t;
         usuario->totalTransacoes++;
+
+        salvarExtrato(*usuario);
     } else {
         printf("Limite de transacoes atingido.\n");
     }
@@ -307,6 +311,8 @@ void comprarCripto(Usuario *usuario, Cotacao cotacao){
 
         usuario->transacoes[usuario->totalTransacoes] = t;
         usuario->totalTransacoes++;
+
+        salvarExtrato(*usuario);
     } else {
         printf("Limite de transacoes atingido.\n");
     }
@@ -413,6 +419,8 @@ void venderCripto(Usuario *usuario, Cotacao cotacao){
 
         usuario->transacoes[usuario->totalTransacoes] = t;
         usuario->totalTransacoes++;
+
+        salvarExtrato(*usuario);
     } else {
         printf("Limite de transacoes atingido.\n");
     }

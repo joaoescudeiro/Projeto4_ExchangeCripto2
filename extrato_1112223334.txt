@@ -1,0 +1,5 @@
+Extrato do usuario CPF: 1112223334
+14/04/2025 18:01:11 - DEPOSITO REAL | Valor: R$ 2400.00 | Taxa: R$ 0.00 | Final: 2400.000000
+14/04/2025 18:01:21 - COMPRA BTC | Valor: R$ 800.00 | Taxa: R$ 16.00 | Final: 0.003136
+14/04/2025 18:01:33 - SAQUE REAL | Valor: R$ 50.00 | Taxa: R$ 0.00 | Final: -50.000000
+14/04/2025 18:23:02 - DEPOSITO REAL | Valor: R$ 100.00 | Taxa: R$ 0.00 | Final: 100.000000
