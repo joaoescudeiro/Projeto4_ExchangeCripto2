@@ -418,7 +418,24 @@ void venderCripto(Usuario *usuario, Cotacao cotacao){
 }
 
 void atualizarCotacoes(Cotacao *cotacao){
+    printf("\nAtualizar cotacoes\n");
 
+    double variacao;
+
+    variacao = gerarVariacaoAleatoria();
+    double anteriorBTC = cotacao->cotacaoBTC;
+    cotacao->cotacaoBTC *= (1 + variacao);
+    printf("BTC: R$ %.2lf -> R$ %.2lf (%.2lf%%)\n", anteriorBTC, cotacao->cotacaoBTC, variacao * 100);
+
+    variacao = gerarVariacaoAleatoria();
+    double anteriorETH = cotacao->cotacaoETH;
+    cotacao->cotacaoETH *= (1 + variacao);
+    printf("ETH: R$ %.2lf -> R$ %.2lf (%.2lf%%)\n", anteriorETH, cotacao->cotacaoETH, variacao * 100);
+
+    variacao = gerarVariacaoAleatoria();
+    double anteriorXRP = cotacao->cotacaoXRP;
+    cotacao->cotacaoXRP *= (1 + variacao);
+    printf("XRP: R$ %.2lf -> R$ %.2lf (%.2lf%%)\n", anteriorXRP, cotacao->cotacaoXRP, variacao * 100);
 }
 
 void consultarExtrato(Usuario usuario){
