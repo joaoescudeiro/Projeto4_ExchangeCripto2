@@ -1,27 +1,39 @@
 #ifndef PROJETOINVEST_H
 #define PROJETOINVEST_H
 
-#define INVESTIDORES 100
-#define CRIPTOMOEDAS 100
-#define NOME 50
-#define CPF 15
-#define SENHA 20
+#define MAXIMO_USUARIOS 10
+#define MAXIMO_TRANSACOES 100
+#define TAMANHO_CPF 12
+#define TAMANHO_SENHA 20
 
 typedef struct {
-    char nome[NOME];
-    char cpf[CPF];
-    char senha[SENHA];
-    float saldo;
-} Investidor;
+    int dia, mes, ano, hora, min, seg;
+} DataHora;
 
 typedef struct {
-    char nome[NOME];
-    float cotacao;
-    float taxa_compra;
-    float taxa_venda;
-} Criptomoeda;
+    DataHora data;
+    char tipoTransacao[10];
+    char tipoMoeda[10];
+    double valorOperacao;
+    double taxa;
+    double valorFinal;
+} Transacao;
+
+typedef struct {
+    char cpf[TAMANHO_CPF];
+    char senha[TAMANHO_SENHA];
+    double saldoReais;
+    double saldoBTC;
+    double saldoETH;
+    double saldoXRP;
+    Transacao transacoes[MAXIMO_TRANSACOES];
+    int totalTransacoes;
+} Usuario;
 
 int loginAdmin();
-void menuAdmin();
+int carregarUsuarios(Usuario *usuarios);
+void salvarUsuarios(Usuario *usuarios, int total);
+void menuAdmin(Usuario *usuarios, int *totalUsuarios);
+void cadastrarInvestidor(Usuario *usuarios, int *totalUsuarios);
 
 #endif
