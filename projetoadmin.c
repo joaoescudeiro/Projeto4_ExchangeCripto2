@@ -73,3 +73,37 @@ void cadastrarInvestidor(Usuario *usuarios, int *totalUsuarios) {
 
     printf("Investidor cadastrado com sucesso.\n");
 }
+
+void excluirInvestidor(Usuario *usuarios, int *totalUsuarios) {
+    if (*totalUsuarios == 0) {
+        printf("Nenhum investidor cadastrado.\n");
+        return;
+    }
+
+    char cpf[TAMANHO_CPF];
+    printf("Digite o CPF do investidor que deseja excluir: ");
+    scanf("%s", cpf);
+
+    int encontrado = -1;
+    for (int i = 0; i < *totalUsuarios; i++) {
+        if (strcmp(usuarios[i].cpf, cpf) == 0) {
+            encontrado = i;
+            break;
+        }
+    }
+
+    if (encontrado == -1) {
+        printf("Investidor nao encontrado.\n");
+        return;
+    }
+
+    for (int i = encontrado; i < (*totalUsuarios - 1); i++) {
+        usuarios[i] = usuarios[i + 1];
+    }
+
+    (*totalUsuarios)--;
+
+    salvarUsuarios(usuarios, *totalUsuarios);
+
+    printf("Investidor removido.\n");
+}

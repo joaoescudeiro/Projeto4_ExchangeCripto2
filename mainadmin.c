@@ -21,6 +21,7 @@ void menuAdmin(Usuario *usuarios, int *totalUsuarios) {
     do {
         printf("\nMenu Administrador\n");
         printf("1. Cadastrar novo investidor\n");
+        printf("2. Excluir investidor\n");
         printf("0. Sair\n");
         printf("Escolha uma opcao: ");
         scanf("%d", &opcao);
@@ -28,6 +29,9 @@ void menuAdmin(Usuario *usuarios, int *totalUsuarios) {
         switch (opcao) {
             case 1:
                 cadastrarInvestidor(usuarios, totalUsuarios);
+                break;
+            case 2:
+                excluirInvestidor(usuarios, totalUsuarios); // chamada da nova função
                 break;
             case 0:
                 printf("Encerrando.\n");
