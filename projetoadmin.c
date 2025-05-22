@@ -1,42 +1,51 @@
 #include <stdio.h>
 #include <string.h>
 #include "projetoadmin.h"
+#include "projeto.h"
 
-int loginAdmin() {
-    char cpf[TAMANHO_CPF];
-    char senha[TAMANHO_SENHA];
+int carregarAdmins(Admin *admins) {
+    FILE *fp = fopen("admins.dat", "rb");
+    if (!fp) return 0;
 
-    printf("CPF do administrador: ");
-    scanf("%s", cpf);
-    printf("Senha: ");
-    scanf("%s", senha);
-
-    if (strcmp(cpf, "12345678900") == 0 && strcmp(senha, "admin") == 0) {
-        return 1;
-    } else {
-        printf("CPF ou senha incorretos.\n");
-        return 0;
-    }
-}
-
-int carregarUsuarios(Usuario *usuarios) {
-    FILE *arquivo = fopen("usuarios.dat", "rb");
     int total = 0;
-    if (arquivo != NULL) {
-        fread(&total, sizeof(int), 1, arquivo);
-        fread(usuarios, sizeof(Usuario), total, arquivo);
-        fclose(arquivo);
+    while (fread(&admins[total], sizeof(Admin), 1, fp) == 1) {
+        total++;
     }
+
+    fclose(fp);
     return total;
 }
 
-void salvarUsuarios(Usuario *usuarios, int total) {
-    FILE *arquivo = fopen("usuarios.dat", "wb");
-    if (arquivo != NULL) {
-        fwrite(&total, sizeof(int), 1, arquivo);
-        fwrite(usuarios, sizeof(Usuario), total, arquivo);
-        fclose(arquivo);
+
+int loginAdmin() {
+    Admin admins[10];
+    int totalAdmins = carregarAdmins(admins);
+    char cpf[TAMANHO_CPF], senha[TAMANHO_SENHA];
+
+    printf("Login Admin\nCPF: ");
+    scanf("%11s", cpf);
+    printf("Senha: ");
+    scanf("%19s", senha);
+
+    for (int i = 0; i < totalAdmins; i++) {
+        if (strcmp(admins[i].cpf, cpf) == 0 && strcmp(admins[i].senha, senha) == 0) {
+            return 1;
+        }
     }
+
+    return 0;
+}
+
+void adicionarAdmin() {
+    Admin novo;
+    printf("Digite CPF do admin: ");
+    scanf("%11s", novo.cpf);
+    printf("Digite senha do admin: ");
+    scanf("%19s", novo.senha);
+
+    FILE *fp = fopen("admins.dat", "ab");
+    fwrite(&novo, sizeof(Admin), 1, fp);
+    fclose(fp);
 }
 
 void cadastrarInvestidor(Usuario *usuarios, int *totalUsuarios) {
@@ -46,64 +55,127 @@ void cadastrarInvestidor(Usuario *usuarios, int *totalUsuarios) {
     }
 
     Usuario novo;
-    printf("Cadastro de Usuario\n");
-    printf("Digite o CPF: ");
+    printf("Cadastro de Investidor\n");
+    printf("Digite o nome do investidor (max %d caracteres): ", TAMANHO_NOME - 1);
+    scanf(" %[^\n]", novo.nome);
+
+    printf("Digite CPF (max %d caracteres): ", TAMANHO_CPF - 1);
     scanf("%s", novo.cpf);
 
+    
     for (int i = 0; i < *totalUsuarios; i++) {
         if (strcmp(usuarios[i].cpf, novo.cpf) == 0) {
-            printf("CPF ja cadastrado. Tente novamente.\n");
+            printf("CPF ja cadastrado.\n");
             return;
         }
     }
 
-    printf("Digite a senha: ");
+    printf("Digite senha (max %d caracteres): ", TAMANHO_SENHA - 1);
     scanf("%s", novo.senha);
 
+    
+    novo.totalCriptos = 0;
+    for (int i = 0; i < MAX_CRIPTOS; i++) {
+        novo.saldos[i].saldo = 0.0;
+        novo.saldos[i].nomeCripto[0] = '\0';
+    }
+
     novo.saldoReais = 0.0;
-    novo.saldoBTC = 0.0;
-    novo.saldoETH = 0.0;
-    novo.saldoXRP = 0.0;
     novo.totalTransacoes = 0;
 
     usuarios[*totalUsuarios] = novo;
     (*totalUsuarios)++;
 
     salvarUsuarios(usuarios, *totalUsuarios);
-
     printf("Investidor cadastrado com sucesso.\n");
 }
 
-void excluirInvestidor(Usuario *usuarios, int *totalUsuarios) {
-    if (*totalUsuarios == 0) {
-        printf("Nenhum investidor cadastrado.\n");
-        return;
-    }
 
+void excluirInvestidor(Usuario *usuarios, int *totalUsuarios) {
     char cpf[TAMANHO_CPF];
-    printf("Digite o CPF do investidor que deseja excluir: ");
+    char confirmacao;
+    printf("Digite o CPF do investidor a excluir: ");
     scanf("%s", cpf);
 
-    int encontrado = -1;
+    int pos = -1;
     for (int i = 0; i < *totalUsuarios; i++) {
         if (strcmp(usuarios[i].cpf, cpf) == 0) {
-            encontrado = i;
+            pos = i;
             break;
         }
     }
 
-    if (encontrado == -1) {
+    if (pos == -1) {
         printf("Investidor nao encontrado.\n");
         return;
     }
 
-    for (int i = encontrado; i < (*totalUsuarios - 1); i++) {
-        usuarios[i] = usuarios[i + 1];
+    printf("\nInvestidor encontrado:\n");
+    printf("CPF: %s\n", usuarios[pos].cpf);
+    printf("Nome: %s\n", usuarios[pos].nome);
+    printf("Saldo em Reais: R$ %.2lf\n", usuarios[pos].saldoReais);
+    printf("Criptomoedas cadastradas: %d\n", usuarios[pos].totalCriptos);
+
+    printf("Deseja realmente excluir este investidor? (s/n): ");
+    scanf(" %c", &confirmacao);
+
+    if (confirmacao != 's' && confirmacao != 'S') {
+        printf("Exclusao cancelada.\n");
+        return;
     }
 
+    for (int i = pos; i < *totalUsuarios - 1; i++) {
+        usuarios[i] = usuarios[i + 1];
+    }
     (*totalUsuarios)--;
 
     salvarUsuarios(usuarios, *totalUsuarios);
+    printf("Investidor excluido com sucesso.\n");
+}
 
-    printf("Investidor removido.\n");
+
+void cadastrarCriptomoeda(Criptomoeda *criptos, int *totalCriptos, Usuario *usuarios, int totalUsuarios) {
+    if (*totalCriptos >= MAX_CRIPTOS) {
+        printf("Limite maximo de criptomoedas atingido.\n");
+        return;
+    }
+
+    Criptomoeda nova;
+    printf("Cadastro de Criptomoeda\n");
+    printf("Digite o nome da criptomoeda (max 19 caracteres): ");
+    scanf("%19s", nova.nome);
+
+    for (int i = 0; i < *totalCriptos; i++) {
+        if (strcmp(criptos[i].nome, nova.nome) == 0) {
+            printf("Criptomoeda ja cadastrada.\n");
+            return;
+        }
+    }
+
+    printf("Digite a cotacao inicial: R$ ");
+    scanf("%lf", &nova.cotacao);
+
+    if (nova.cotacao <= 0) {
+        printf("Cotacao invalida.\n");
+        return;
+    }
+
+    printf("Digite a taxa de compra (%%): ");
+    scanf("%lf", &nova.taxaCompra);
+
+    printf("Digite a taxa de venda (%%): ");
+    scanf("%lf", &nova.taxaVenda);
+
+    criptos[*totalCriptos] = nova;
+    (*totalCriptos)++;
+
+    for (int i = 0; i < totalUsuarios; i++) {
+        usuarios[i].saldos[usuarios[i].totalCriptos].saldo = 0.0;
+        strcpy(usuarios[i].saldos[usuarios[i].totalCriptos].nomeCripto, nova.nome);
+        usuarios[i].totalCriptos++;
+    }
+
+    salvarCriptomoedas(criptos, *totalCriptos);
+    salvarUsuarios(usuarios, totalUsuarios);
+    printf("Criptomoeda cadastrada com sucesso.\n");
 }

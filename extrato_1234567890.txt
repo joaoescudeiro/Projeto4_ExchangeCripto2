@@ -1,4 +1,0 @@
-Extrato do usuario CPF: 1234567890
-14/04/2025 18:00:26 - DEPOSITO REAL | Valor: R$ 1200.00 | Taxa: R$ 0.00 | Final: 1200.000000
-14/04/2025 18:00:38 - COMPRA ETH | Valor: R$ 500.00 | Taxa: R$ 5.00 | Final: 0.033000
-14/04/2025 18:23:26 - DEPOSITO REAL | Valor: R$ 200.00 | Taxa: R$ 0.00 | Final: 200.000000
