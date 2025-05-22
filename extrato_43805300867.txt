@@ -4,3 +4,7 @@ Extrato do usuario CPF: 43805300867
 22/05/2025 02:52:14 - COMPRA Ripple | Valor: R$ 1000.00 | Taxa: R$ 10.00 | Final: 990.000000
 22/05/2025 02:52:23 - VENDA Ripple | Valor: R$ 400.00 | Taxa: R$ 4.00 | Final: 396.000000
 22/05/2025 02:52:33 - COMPRA BitCoin | Valor: R$ 300.00 | Taxa: R$ 3.00 | Final: 297.000000
+22/05/2025 03:19:20 - SAQUE REAL | Valor: R$ 100.00 | Taxa: R$ 0.00 | Final: -100.000000
+22/05/2025 03:19:25 - DEPOSITO REAL | Valor: R$ 300.00 | Taxa: R$ 0.00 | Final: 300.000000
+22/05/2025 03:19:34 - COMPRA BitCoin | Valor: R$ 200.00 | Taxa: R$ 2.00 | Final: 198.000000
+22/05/2025 03:19:56 - VENDA Ripple | Valor: R$ 100.00 | Taxa: R$ 1.00 | Final: 99.000000

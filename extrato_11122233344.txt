@@ -5,3 +5,4 @@ Extrato do usuario CPF: 11122233344
 22/05/2025 02:54:15 - COMPRA Ripple | Valor: R$ 100.00 | Taxa: R$ 1.00 | Final: 99.000000
 22/05/2025 02:54:25 - COMPRA Etherium | Valor: R$ 1000.00 | Taxa: R$ 10.00 | Final: 990.000000
 22/05/2025 02:54:36 - VENDA Etherium | Valor: R$ 400.00 | Taxa: R$ 4.00 | Final: 396.000000
+22/05/2025 03:20:47 - DEPOSITO REAL | Valor: R$ 300.00 | Taxa: R$ 0.00 | Final: 300.000000
