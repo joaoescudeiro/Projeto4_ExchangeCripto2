@@ -48,7 +48,7 @@ void adicionarAdmin() {
     fclose(fp);
 }
 
-void cadastrarInvestidor(Usuario *usuarios, int *totalUsuarios) {
+void cadastrarInvestidor(Usuario *usuarios, int *totalUsuarios, Criptomoeda *criptos, int totalCriptos) {
     if (*totalUsuarios >= MAXIMO_USUARIOS) {
         printf("Limite maximo de usuarios atingido.\n");
         return;
@@ -74,10 +74,14 @@ void cadastrarInvestidor(Usuario *usuarios, int *totalUsuarios) {
     scanf("%s", novo.senha);
 
     
-    novo.totalCriptos = 0;
-    for (int i = 0; i < MAX_CRIPTOS; i++) {
+    novo.totalCriptos = totalCriptos;
+    for (int i = 0; i < totalCriptos; i++) {
+        strcpy(novo.saldos[i].nomeCripto, criptos[i].nome);
         novo.saldos[i].saldo = 0.0;
+    }
+    for (int i = totalCriptos; i < MAX_CRIPTOS; i++) {
         novo.saldos[i].nomeCripto[0] = '\0';
+        novo.saldos[i].saldo = 0.0;
     }
 
     novo.saldoReais = 0.0;
@@ -178,6 +182,23 @@ void cadastrarCriptomoeda(Criptomoeda *criptos, int *totalCriptos, Usuario *usua
     salvarCriptomoedas(criptos, *totalCriptos);
     salvarUsuarios(usuarios, totalUsuarios);
     printf("Criptomoeda cadastrada com sucesso.\n");
+
+    for (int i = 0; i < MAXIMO_USUARIOS; i++) {
+    int jaExiste = 0;
+
+    for (int j = 0; j < usuarios[i].totalCriptos; j++) {
+        if (strcasecmp(usuarios[i].saldos[j].nomeCripto, nova.nome) == 0) {
+            jaExiste = 1;
+            break;
+        }
+    }
+
+    if (!jaExiste && usuarios[i].cpf[0] != '\0' && usuarios[i].totalCriptos < MAX_CRIPTOS) {
+        strcpy(usuarios[i].saldos[usuarios[i].totalCriptos].nomeCripto, nova.nome);
+        usuarios[i].saldos[usuarios[i].totalCriptos].saldo = 0.0;
+        usuarios[i].totalCriptos++;
+    }
+}
 }
 
 void excluirCriptomoeda(Criptomoeda *criptos, int *totalCriptos, Usuario *usuarios, int totalUsuarios) {
@@ -245,4 +266,28 @@ void excluirCriptomoeda(Criptomoeda *criptos, int *totalCriptos, Usuario *usuari
     salvarUsuarios(usuarios, totalUsuarios);
 
     printf("Criptomoeda excluida com sucesso.\n");
+}
+
+void consultarSaldoInvestidor(Usuario *usuarios, int totalUsuarios) {
+    char cpf[TAMANHO_CPF];
+    printf("Digite o CPF do investidor: ");
+    scanf("%s", cpf);
+
+    for (int i = 0; i < totalUsuarios; i++) {
+        if (strcmp(usuarios[i].cpf, cpf) == 0) {
+            printf("\nSaldo do Investidor\n");
+            printf("CPF: %s\n", usuarios[i].cpf);
+            printf("Saldo em Reais: R$ %.2lf\n", usuarios[i].saldoReais);
+            printf("Criptomoedas:\n");
+
+            for (int j = 0; j < usuarios[i].totalCriptos; j++) {
+                printf("  %s: %.6lf\n",
+                       usuarios[i].saldos[j].nomeCripto,
+                       usuarios[i].saldos[j].saldo);
+            }
+            return;
+        }
+    }
+
+    printf("Investidor com CPF %s nao encontrado.\n", cpf);
 }

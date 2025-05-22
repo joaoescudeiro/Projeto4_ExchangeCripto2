@@ -1,3 +1,4 @@
 Extrato do usuario CPF: 43805300867
-22/05/2025 01:11:53 - DEPOSITO REAL | Valor: R$ 1200.00 | Taxa: R$ 0.00 | Final: 1200.000000
-22/05/2025 01:12:27 - COMPRA BitCoin | Valor: R$ 300.00 | Taxa: R$ 3.00 | Final: 297.000000
+22/05/2025 02:34:13 - DEPOSITO REAL | Valor: R$ 4000.00 | Taxa: R$ 0.00 | Final: 4000.000000
+22/05/2025 02:34:27 - COMPRA Ripple | Valor: R$ 2000.00 | Taxa: R$ 20.00 | Final: 1980.000000
+22/05/2025 02:35:13 - COMPRA aguacoin | Valor: R$ 200.00 | Taxa: R$ 2.00 | Final: 198.000000
