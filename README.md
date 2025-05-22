@@ -11,7 +11,7 @@ Felipe Pellizzari Vaz Gabriel 24.224.005-9
 
 ## Forma de compilação e execução do código
 
-- **Para o programa dos administradores:**
+- **Para o programa dos administradores:** 
 - Para compilar o código do programa do administrador utilize ```gcc mainadmin.c projetoadmin.c projeto.c -o admin``` no terminal.
 
 - Para executar o programa do administrador no terminal utilize ```./admin``` após a compilação.
