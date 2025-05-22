@@ -179,3 +179,70 @@ void cadastrarCriptomoeda(Criptomoeda *criptos, int *totalCriptos, Usuario *usua
     salvarUsuarios(usuarios, totalUsuarios);
     printf("Criptomoeda cadastrada com sucesso.\n");
 }
+
+void excluirCriptomoeda(Criptomoeda *criptos, int *totalCriptos, Usuario *usuarios, int totalUsuarios) {
+    if (*totalCriptos == 0) {
+        printf("Nao ha criptomoedas cadastradas.\n");
+        return;
+    }
+
+    char nome[20];
+    printf("Digite o nome da criptomoeda a ser excluida: ");
+    scanf("%19s", nome);
+
+    int pos = -1;
+    for (int i = 0; i < *totalCriptos; i++) {
+        if (_stricmp(criptos[i].nome, nome) == 0) {
+            pos = i;
+            break;
+        }
+    }
+
+    if (pos == -1) {
+        printf("Criptomoeda nao encontrada.\n");
+        return;
+    }
+
+
+    printf("\nCriptomoeda encontrada:\n");
+    printf("Nome: %s\n", criptos[pos].nome);
+    printf("Cotacao: R$ %.2lf\n", criptos[pos].cotacao);
+    printf("Taxa de compra: %.2lf%%\n", criptos[pos].taxaCompra);
+    printf("Taxa de venda: %.2lf%%\n", criptos[pos].taxaVenda);
+
+    char confirmacao;
+    printf("Deseja realmente excluir esta criptomoeda? (s/n): ");
+    scanf(" %c", &confirmacao);
+
+    if (confirmacao != 's' && confirmacao != 'S') {
+        printf("Operacao cancelada.\n");
+        return;
+    }
+
+    for (int i = pos; i < *totalCriptos - 1; i++) {
+        criptos[i] = criptos[i + 1];
+    }
+    (*totalCriptos)--;
+
+    for (int i = 0; i < totalUsuarios; i++) {
+        int userPos = -1;
+        for (int j = 0; j < usuarios[i].totalCriptos; j++) {
+            if (strcmp(usuarios[i].saldos[j].nomeCripto, nome) == 0) {
+                userPos = j;
+                break;
+            }
+        }
+
+        if (userPos != -1) {
+            for (int j = userPos; j < usuarios[i].totalCriptos - 1; j++) {
+                usuarios[i].saldos[j] = usuarios[i].saldos[j + 1];
+            }
+            usuarios[i].totalCriptos--;
+        }
+    }
+
+    salvarCriptomoedas(criptos, *totalCriptos);
+    salvarUsuarios(usuarios, totalUsuarios);
+
+    printf("Criptomoeda excluida com sucesso.\n");
+}

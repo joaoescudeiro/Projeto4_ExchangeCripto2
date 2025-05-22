@@ -12,6 +12,7 @@ void excluirInvestidor(Usuario *usuarios, int *totalUsuarios);
 void adicionarAdmin();
 
 void cadastrarCriptomoeda(Criptomoeda *criptos, int *totalCriptos, Usuario *usuarios, int totalUsuarios);
+void excluirCriptomoeda(Criptomoeda *criptos, int *totalCriptos, Usuario *usuarios, int totalUsuarios);
 void salvarCriptomoedas(Criptomoeda *criptos, int totalCriptos);
 int carregarCriptomoedas(Criptomoeda *criptos);
 
