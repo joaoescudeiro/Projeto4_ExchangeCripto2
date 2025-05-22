@@ -291,3 +291,32 @@ void consultarSaldoInvestidor(Usuario *usuarios, int totalUsuarios) {
 
     printf("Investidor com CPF %s nao encontrado.\n", cpf);
 }
+
+void consultarExtratoInvestidor() {
+    char cpf[20];
+    char nomeArquivo[50];
+    char linha[256];
+
+    printf("Digite o CPF do investidor: ");
+    scanf("%s", cpf);
+
+    sprintf(nomeArquivo, "extrato_%s.txt", cpf);
+
+    FILE *arquivo = fopen(nomeArquivo, "r");
+
+    if (arquivo == NULL) {
+        printf("Extrato nao encontrado para o CPF informado.\n");
+        return;
+    }
+
+    printf("\nExtrato do investidor (CPF: %s):\n", cpf);
+    printf("--------------------------------------------------\n");
+
+    while (fgets(linha, sizeof(linha), arquivo) != NULL) {
+        printf("%s", linha);
+    }
+
+    printf("--------------------------------------------------\n");
+
+    fclose(arquivo);
+}

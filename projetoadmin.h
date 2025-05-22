@@ -16,5 +16,6 @@ void excluirCriptomoeda(Criptomoeda *criptos, int *totalCriptos, Usuario *usuari
 void salvarCriptomoedas(Criptomoeda *criptos, int totalCriptos);
 int carregarCriptomoedas(Criptomoeda *criptos);
 void consultarSaldoInvestidor(Usuario *usuarios, int totalUsuarios);
+void consultarExtratoInvestidor();
 
 #endif
