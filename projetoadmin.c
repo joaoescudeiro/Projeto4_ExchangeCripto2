@@ -320,3 +320,18 @@ void consultarExtratoInvestidor() {
 
     fclose(arquivo);
 }
+
+void atualizarCotacoes(Criptomoeda *criptos, int totalCriptos) {
+    for (int i = 0; i < totalCriptos; i++) {
+        double variacao = gerarVariacaoAleatoria(criptos[i].cotacao);
+        criptos[i].cotacao += variacao;
+        if (criptos[i].cotacao < 0.01) criptos[i].cotacao = 0.01;
+    }
+
+    printf("\nCotacoes atualizadas:\n");
+    for (int i = 0; i < totalCriptos; i++) {
+        printf("%s: R$ %.2lf\n", criptos[i].nome, criptos[i].cotacao);
+    }
+
+    salvarCriptomoedas(criptos, totalCriptos);
+}

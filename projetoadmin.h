@@ -17,5 +17,6 @@ void salvarCriptomoedas(Criptomoeda *criptos, int totalCriptos);
 int carregarCriptomoedas(Criptomoeda *criptos);
 void consultarSaldoInvestidor(Usuario *usuarios, int totalUsuarios);
 void consultarExtratoInvestidor();
+void atualizarCotacoes(Criptomoeda *criptos, int totalCriptos);
 
 #endif

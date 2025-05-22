@@ -30,6 +30,7 @@ void menuAdmin(Usuario *usuarios, int *totalUsuarios) {
         printf("4. Excluir criptomoeda\n");
         printf("5. Consultar saldo de investidor\n");
         printf("6. Consultar extrato de investidor\n");
+        printf("7. Atualizar cotacoes das criptomoedas\n");
         printf("0. Sair\n");
         printf("Escolha uma opcao: ");
         scanf("%d", &opcao);
@@ -52,6 +53,9 @@ void menuAdmin(Usuario *usuarios, int *totalUsuarios) {
                 break;
             case 6:
                 consultarExtratoInvestidor();
+                break;
+            case 7:
+                atualizarCotacoes(criptos, totalCriptos);
                 break;
             case 0:
                 printf("Encerrando.\n");
