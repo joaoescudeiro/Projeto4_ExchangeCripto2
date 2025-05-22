@@ -1,13 +1,10 @@
 Extrato do usuario CPF: 43805300867
-14/04/2025 16:54:41 - DEPOSITO REAL | Valor: R$ 100.00 | Taxa: R$ 0.00 | Final: 100.000000
-14/04/2025 17:07:29 - DEPOSITO REAL | Valor: R$ 50.00 | Taxa: R$ 0.00 | Final: 50.000000
-14/04/2025 17:07:36 - SAQUE REAL | Valor: R$ 30.00 | Taxa: R$ 0.00 | Final: -30.000000
-14/04/2025 17:27:12 - DEPOSITO REAL | Valor: R$ 10.00 | Taxa: R$ 0.00 | Final: 10.000000
-14/04/2025 17:27:18 - SAQUE REAL | Valor: R$ 15.00 | Taxa: R$ 0.00 | Final: -15.000000
-14/04/2025 17:28:00 - COMPRA ETH | Valor: R$ 50.00 | Taxa: R$ 0.50 | Final: 0.003300
-14/04/2025 17:28:45 - DEPOSITO REAL | Valor: R$ 500.00 | Taxa: R$ 0.00 | Final: 500.000000
-14/04/2025 17:35:48 - DEPOSITO REAL | Valor: R$ 700.00 | Taxa: R$ 0.00 | Final: 700.000000
-14/04/2025 17:36:08 - COMPRA BTC | Valor: R$ 500.00 | Taxa: R$ 10.00 | Final: 0.001960
-14/04/2025 17:42:56 - VENDA BTC | Valor: R$ 300.00 | Taxa: R$ 9.00 | Final: 291.000000
-14/04/2025 17:43:54 - COMPRA XRP | Valor: R$ 200.00 | Taxa: R$ 2.00 | Final: 39.600000
-14/04/2025 18:22:11 - DEPOSITO REAL | Valor: R$ 700.00 | Taxa: R$ 0.00 | Final: 700.000000
+22/05/2025 02:51:54 - DEPOSITO REAL | Valor: R$ 5000.00 | Taxa: R$ 0.00 | Final: 5000.000000
+22/05/2025 02:52:03 - COMPRA TesteCoin | Valor: R$ 2000.00 | Taxa: R$ 20.00 | Final: 1980.000000
+22/05/2025 02:52:14 - COMPRA Ripple | Valor: R$ 1000.00 | Taxa: R$ 10.00 | Final: 990.000000
+22/05/2025 02:52:23 - VENDA Ripple | Valor: R$ 400.00 | Taxa: R$ 4.00 | Final: 396.000000
+22/05/2025 02:52:33 - COMPRA BitCoin | Valor: R$ 300.00 | Taxa: R$ 3.00 | Final: 297.000000
+22/05/2025 03:19:20 - SAQUE REAL | Valor: R$ 100.00 | Taxa: R$ 0.00 | Final: -100.000000
+22/05/2025 03:19:25 - DEPOSITO REAL | Valor: R$ 300.00 | Taxa: R$ 0.00 | Final: 300.000000
+22/05/2025 03:19:34 - COMPRA BitCoin | Valor: R$ 200.00 | Taxa: R$ 2.00 | Final: 198.000000
+22/05/2025 03:19:56 - VENDA Ripple | Valor: R$ 100.00 | Taxa: R$ 1.00 | Final: 99.000000
